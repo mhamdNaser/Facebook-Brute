@@ -118,7 +118,7 @@ def generate_passwords(user):
     passwords.append(user + "admin")
     return passwords
 
-def generate_strong_passwords(count=50000):
+def generate_strong_passwords(count=500):
     import string
     english_letters = string.ascii_letters
     digits = string.digits
@@ -162,7 +162,7 @@ def main(args=None):
         passwords = []
         if args.user:
             passwords += generate_passwords(args.user)
-        passwords += generate_strong_passwords(100)
+        passwords += generate_strong_passwords(500)
     else:
         password_file = args.password_list if args and args.password_list else input(CliColors.OKBLUE + "[?] Password List Filename: \t")
         if os.path.exists(password_file):
