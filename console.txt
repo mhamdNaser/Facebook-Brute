@@ -1,1 +1,3 @@
 python newapp.py -u wjh.al.daltswt.alhq -g --delay 2 --use-proxy
+
+python newapp.py -u wjh.al.daltswt.alhq -g --delay 1 --use-proxy
