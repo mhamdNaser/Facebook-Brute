@@ -1,80 +1,132 @@
+```markdown
 # Facebook-Brute-Force
-This script will do login brute force in Facebook with a list of passwords.
 
+This Python script performs Facebook login brute-force attempts using a password list, a single password, or automatically generated strong passwords. It includes support for proxies, configurable delays, password tracking to avoid retries, and user-friendly CLI options.
 
-# Features
-1. Easy to use.
-2. Easy code.
-3. Colored Texts.
-4. Using the fastest host in Facebook.
-5. Cookies and headers will change every 2 attempts.
-6. A random proxy every attempt.
+---
 
+## ⚙️ Features
 
-# Screenshots
-![](https://lh3.googleusercontent.com/-wYLsAuDg02A/YMPqpL31oOI/AAAAAAAAGsw/RlHmqvrRz3Y2EyhS5GYmb8lBOVC-9CLVgCNcBGAsYHQ/s0/Screenshot%2B2021-06-12%2B003031.png)
-![](https://lh3.googleusercontent.com/-yRZABBgyQfk/YMPqpBx3ukI/AAAAAAAAGss/w0mby0CfNMYkf1o-6UIdKNsKXVQO5liTACNcBGAsYHQ/s0/Screenshot%2B2021-06-12%2B004907.png)
+1. Simple and intuitive command-line interface.
+2. Well-structured, easy-to-read code.
+3. Colored terminal output for better visibility.
+4. Uses `mbasic.facebook.com` for faster response.
+5. Automatically rotates cookies and headers every 2 attempts.
+6. Random proxy from `proxies.txt` is used every attempt (if enabled).
+7. Generates strong passwords including:
+   - Symbols
+   - Digits
+   - English and Arabic characters
+8. Automatically skips previously tried passwords using `tried_passwords.txt`.
+9. Configurable delay between login attempts to reduce the risk of blocking.
+10. Optionally logs attempts to a custom file.
 
-# Installation
-First, you'll need to have:
+---
+
+## 📸 Screenshots
+
+![Screenshot 1](https://lh3.googleusercontent.com/-wYLsAuDg02A/YMPqpL31oOI/AAAAAAAAGsw/RlHmqvrRz3Y2EyhS5GYmb8lBOVC-9CLVgCNcBGAsYHQ/s0/Screenshot%2B2021-06-12%2B003031.png)
+
+![Screenshot 2](https://lh3.googleusercontent.com/-yRZABBgyQfk/YMPqpBx3ukI/AAAAAAAAGss/w0mby0CfNMYkf1o-6UIdKNsKXVQO5liTACNcBGAsYHQ/s0/Screenshot%2B2021-06-12%2B004907.png)
+
+---
+
+## 🛠 Installation
+
+Make sure you have:
+
 1. [Python 3](https://www.python.org/downloads/)
-2. [pip](https://pip.pypa.io/en/stable/installation/#get-pip-py)
+2. [pip](https://pip.pypa.io/en/stable/installation/)
 
-Once that's all set up:
+Then install the script:
 
-1. Clone this repository ```git clone https://github.com/m-primo/Facebook-Brute-Force```.
-2. Go to the cloned directory ```cd Facebook-Brute-Force```.
-3. Install the requirements ```pip install -r primo-pip-reqs.txt```.
+```bash
+git clone https://github.com/m-primo/Facebook-Brute-Force
+cd Facebook-Brute-Force
+pip install -r primo-pip-reqs.txt
+```
 
+---
 
-# Run
-- Using arguments:
+## 🚀 Usage
+
+### Using a password list
+
 ```bash
 python app.py -u <USERNAME/ID/EMAIL/PHONE> -p <PASSWORD_LIST_FILENAME>
 ```
-- To use a single password:
+
+### Using a single password
+
 ```bash
 python app.py -u <USERNAME/ID/EMAIL/PHONE> -sp <PASSWORD>
 ```
-- All arguments
+
+### Auto-generate strong passwords
+
 ```bash
-python app.py -u <USERNAME/ID/EMAIL/PHONE> -p <PASSWORD_LIST_FILENAME> -l <LOG_FILE_NAME> --use-proxy
+python app.py -u <USERNAME/ID/EMAIL/PHONE> -g
 ```
--> the `-l` (log) argument and `--use-proxy` are optional.
-- To get the help message:
+
+### Full command with optional logging and proxy
+
+```bash
+python app.py -u <USERNAME> -p <PASSWORD_LIST_FILENAME> -l <LOG_FILE_NAME> --use-proxy
+```
+
+- `-l` is for specifying a log file.
+- `--use-proxy` enables random proxy usage.
+
+### Help message
+
 ```bash
 python app.py -h
 ```
-- Or you can just run the app and it'll ask you with the inputs (proxies disabled by default in this method, unless of course if you type `--use-proxy`):
+
+### Interactive mode
+
 ```bash
 python app.py
 ```
-- To use the proxies (a random proxy from the proxies file `proxies.txt`):
+
+---
+
+## 📝 Notes
+
+- Proxies must be listed in `proxies.txt` (format: `IP:PORT`).
+- User agents can be customized via `user-agents.txt`.
+- The script remembers already tried passwords via `tried_passwords.txt` to save time.
+- Delay between attempts can be modified in the script settings (default is safe for testing).
+
+---
+
+## 🤝 Contributing
+
+1. [Fork this repository](https://github.com/m-primo/Facebook-Brute-Force/fork)
+2. Clone your forked repo:
+
 ```bash
---use-proxy
+git clone https://github.com/YOUR_USERNAME/Facebook-Brute-Force
+cd Facebook-Brute-Force
 ```
 
+3. Make changes and commit:
 
-# Contributing
-1. [Fork this repository](https://github.com/m-primo/Facebook-Brute-Force/fork).
-2. Clone your repository, replace `[your_repo]` with your repositiory URL.
 ```bash
-git clone [your_repo]
+git commit -m "Your commit message"
 ```
-3. Make & commit your changes, replace `[message]` with your commit message.
-```bash
-git commit -m "[message]"
-```
-3. Push it.
-```bash
-git push
-```
-4. Create a [new pull request](https://github.com/m-primo/Facebook-Brute-Force/pulls) in this repository.
 
+4. Push and open a [Pull Request](https://github.com/m-primo/Facebook-Brute-Force/pulls)
 
-# Disclaimer
-THIS REPOSITORY AND EVERY SCRIPT INCLUDED IN IT IS FOR EDUCATIONAL, TESTING, AND RESEARCH PURPOSES ONLY. THE OWNER NOR ANY CONTRIBUTOR IS NOT RESPONSIBLE FOR YOUR ACTIONS.
+---
 
+## ⚠️ Disclaimer
 
-# License
+This repository and all its contents are provided for **educational, testing, and research purposes only**. The author is **not responsible for any misuse or illegal actions** taken using this code.
+
+---
+
+## 📜 License
+
 [WTFPL License](LICENSE)
+```
